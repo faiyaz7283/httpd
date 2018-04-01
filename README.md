@@ -1,2 +1,2 @@
 # httpd
-Dockerfile to build httpd.
+Dockerfile to build httpd
