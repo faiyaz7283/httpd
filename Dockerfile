@@ -3,6 +3,9 @@ FROM httpd:alpine
 
 LABEL maintainer="faiyaz7283@gmail.com"
 
+# Create the SSL directory
+RUN mkdir -p /usr/local/apache2/ssl
+
 # Create the conf/other directory
 RUN mkdir -p /usr/local/apache2/conf/other
 
