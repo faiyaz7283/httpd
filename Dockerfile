@@ -3,12 +3,12 @@ FROM httpd:alpine
 
 LABEL maintainer="faiyaz7283@gmail.com"
 
-# Create the conf/extra/other directory
-RUN mkdir -p /usr/local/apache2/conf/extra/other
+# Create the conf/other directory
+RUN mkdir -p /usr/local/apache2/conf/other
 
 # Move all files from extra to other dir, except few common used files
 RUN cd /usr/local/apache2/conf/extra &&\
-ls | egrep -v -e "httpd-(default|ssl|vhosts)\.conf|other" | xargs -I {} mv {} /usr/local/apache2/conf/extra/other
+ls | egrep -v -e "httpd-(default|ssl|vhosts)\.conf|other" | xargs -I {} mv {} /usr/local/apache2/conf/other
 
 # Create the www directory
 RUN mkdir -p /var/www && chown -R www-data:www-data /var/www
