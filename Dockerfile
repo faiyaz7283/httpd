@@ -3,6 +3,9 @@ FROM httpd:alpine
 
 LABEL maintainer="faiyaz7283@gmail.com"
 
+# Install bash and other helpful tools
+RUN apk add --no-cache bash bash-completion busybox-suid sudo git nano curl man
+
 # Create the SSL directory
 RUN mkdir -p /usr/local/apache2/ssl
 
@@ -10,8 +13,8 @@ RUN mkdir -p /usr/local/apache2/ssl
 RUN mkdir -p /usr/local/apache2/conf/other
 
 # Move all files from extra to other dir, except few common used files
-RUN cd /usr/local/apache2/conf/extra &&\
-ls | egrep -v -e "httpd-(default|ssl|vhosts)\.conf|other" | xargs -I {} mv {} /usr/local/apache2/conf/other
+RUN cd /usr/local/apache2/conf/extra && \
+    ls | egrep -v -e "httpd-(default|ssl|vhosts)\.conf|other" | xargs -I {} mv {} /usr/local/apache2/conf/other
 
 # Create the www directory
 RUN mkdir -p /var/www && chown -R www-data:www-data /var/www
