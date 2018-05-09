@@ -19,6 +19,15 @@ RUN cd /usr/local/apache2/conf/extra && \
 # Create the www directory
 RUN mkdir -p /var/www && chown -R www-data:www-data /var/www
 
+# Add the missing libphp5.so module.
+RUN apk add --no-cache php5-apache2 && \
+    cp /usr/lib/apache2/libphp5.so /usr/local/apache2/modules/libphp5.so && \
+    apk del --no-cache --purge -r php5-apache2
+
+# Add a group and user
+RUN addgroup -g 1000 -S dcutil && \
+    adduser -D -u 1000 -s /bin/bash -G dcutil dcutil
+
 # Copy over the modified httpd.conf file
 COPY httpd.conf /usr/local/apache2/conf/
 
